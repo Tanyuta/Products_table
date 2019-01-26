@@ -3,15 +3,15 @@
     <v-flex xs12 sm10 md8 lg6>
       <v-card ref="form">
         <v-card-text>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation @submit.prevent>
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <v-text-field v-model="product.id" label="ID" disabled></v-text-field>
+                  <v-text-field v-model="initialProduct.id" label="ID" disabled></v-text-field>
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
-                    v-model="product.name"
+                    v-model="initialProduct.name"
                     label="Name"
                     :rules="nameRules"
                     required
@@ -20,7 +20,7 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
-                    v-model="product.description"
+                    v-model="initialProduct.description"
                     label="Description"
                     :rules="descriptionRules"
                     required
@@ -28,7 +28,7 @@
                   ></v-text-field>
                 </v-flex>
               </v-layout>
-              <v-btn :disabled="!valid" color="success" @click="validate">Save</v-btn>
+              <v-btn type="submit" :disabled="!valid" color="success">Save</v-btn>
               <router-link to="/">
                 <v-btn color="error">Cancel</v-btn>
               </router-link>
@@ -46,38 +46,35 @@ export default {
 //   props: ["product"],
   data: () => ({
     initialProduct: {},
-    product:
-        {
-        id: 1,
-        name: 'Phone',
-        description: 'KFJbskjdbksdgbkajdgba af sfaf',
-        },
-        valid: true,
-        nameRules: [
-        v => !!v || "Name is required"
-        // v => (v && v.length <= 10) || "Name must be less than 10 characters"
-        ],
-        descriptionRules: [
-        v => !!v || "Name is required"
-        // v => (v && v.length <= 10) || "Name must be less than 10 characters"
-        ]
-    }),
+    valid: true,
+    nameRules: [
+      v => !!v || "Name is required"
+    ],
+    descriptionRules: [
+      v => !!v || "Name is required"
+    ]
+}),
   created() {
-      this.initialProduct = this.$store.getters('p')
+      console.log('LOL',this.$router.params);
+      
+    //   this.initialProduct = this.$store.getters.GET_CURRENT_PRODUCT(this.$router.)
+      console.log('created', this.initialProduct);
+      
 // this.$store.commit('auth_success', response.data.email);
   },
 
   methods: {
-    validate() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
-      }
+   cancel() {
+    //   this.$refs.form.resetValidation();
+    //   this.$refs.form.reset();
+    //   this.initialProduct = {}
+      this.$router.push('/')
     },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+    updateProduct() {
+      this.$store.commit('UPDATE_PRODUCT', {'id': this.$router.params.id, 'payload': this.initialProduct})
+    //   this.$refs.form.resetValidation();
+    //   this.$refs.form.reset();
+      this.$router.push('/')
     }
   }
 };

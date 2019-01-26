@@ -7,14 +7,6 @@
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12>
-                   <v-text-field
-                    value="1"
-                    label="ID"
-                    disabled
-                    outline
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12>
                   <v-text-field
                     v-model="newProduct.name"
                     label="Name"
@@ -33,10 +25,8 @@
                   ></v-text-field>
                 </v-flex>
               </v-layout>
-              <v-btn :disabled="!valid" color="success" @click="validate">Save</v-btn>
-              <router-link to="/">
-                <v-btn color="error">Cancel</v-btn>
-              </router-link>
+              <v-btn :disabled="!valid" color="success" @click="createProduct">Save</v-btn>
+              <v-btn color="error" @click="cancel">Cancel</v-btn>
             </v-container>
           </v-form>
         </v-card-text>
@@ -53,25 +43,28 @@ export default {
     valid: true,
     nameRules: [
       v => !!v || "Name is required"
-      // v => (v && v.length <= 10) || "Name must be less than 10 characters"
     ],
     descriptionRules: [
       v => !!v || "Name is required"
-      // v => (v && v.length <= 10) || "Name must be less than 10 characters"
     ]
   }),
 
   methods: {
-    validate() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
-      }
+    cancel() {
+      console.log(this.$refs.form);
+      // this.$refs.form.resetValidation();
+      // this.$refs.form.reset();
+      // this.newProduct = {}
+      this.$router.push('/')
     },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+    createProduct() {
+      console.log(this.$refs.form);
+           
+      this.$store.commit('ADD_PRODUCT', this.newProduct)
+      // this.$refs.form.resetValidation();
+      // this.$refs.form.reset();
+      // this.newProduct = {}
+      this.$router.push('/')
     }
   }
 };
