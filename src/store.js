@@ -8,14 +8,7 @@ export default new Vuex.Store({
     products: JSON.parse(localStorage.getItem('products')) || [],
   },
   getters: {
-    GET_PRODUCTS: state => state.products,
-    GET_CURRENT_PRODUCT: (state, id) => {
-      state.products.forEach(element => {
-        if (element.id === id) {
-          return element
-        }
-    })
-    }
+    GET_PRODUCTS: state => state.products
   },
   mutations: {
     ADD_PRODUCT: (state, payload) => {
@@ -27,8 +20,14 @@ export default new Vuex.Store({
       state.products.push(newProduct);
       localStorage.setItem('products', JSON.stringify(state.products))
     },
-    UPDATE_PRODUCT(state, {id, payload}){  
-      // let currentProduct = this.getters.GET_CURRENT_PRODUCT(state, id)
+    UPDATE_PRODUCT(state, payload){  
+      // let currentProduct = {}
+      state.products.forEach(element => {
+        if (Number(element.id) === Number(payload.id)) {
+          element.name = payload.name
+          element.description = payload.description
+        }
+      })
       // currentProduct.name = payload.name
       // currentProduct.description = payload.description
       // state.products.forEach(element => {

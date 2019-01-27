@@ -28,7 +28,7 @@
                   ></v-text-field>
                 </v-flex>
               </v-layout>
-              <v-btn type="submit" :disabled="!valid" color="success">Save</v-btn>
+              <v-btn type="submit" :disabled="!valid" color="success" @click="updateProduct">Save</v-btn>
               <router-link to="/">
                 <v-btn color="error">Cancel</v-btn>
               </router-link>
@@ -46,6 +46,7 @@ export default {
 //   props: ["product"],
   data: () => ({
     initialProduct: {},
+    id: 0,
     valid: true,
     nameRules: [
       v => !!v || "Name is required"
@@ -55,12 +56,13 @@ export default {
     ]
 }),
   created() {
-      console.log('LOL',this.$router.params);
-      
-    //   this.initialProduct = this.$store.getters.GET_CURRENT_PRODUCT(this.$router.)
-      console.log('created', this.initialProduct);
-      
-// this.$store.commit('auth_success', response.data.email);
+    this.id =  Number(this.$route.params.id)
+    let products = this.$store.getters.GET_PRODUCTS    
+    products.forEach(element => {        
+        if (element.id === this.id) {            
+          this.initialProduct = element
+        }
+      })
   },
 
   methods: {
@@ -71,7 +73,9 @@ export default {
       this.$router.push('/')
     },
     updateProduct() {
-      this.$store.commit('UPDATE_PRODUCT', {'id': this.$router.params.id, 'payload': this.initialProduct})
+        console.log('update');
+        this.initialProduct.id = this.id
+      this.$store.commit('UPDATE_PRODUCT', this.initialProduct)
     //   this.$refs.form.resetValidation();
     //   this.$refs.form.reset();
       this.$router.push('/')
