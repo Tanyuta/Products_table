@@ -6,12 +6,16 @@
         <td class="text-xs-left">{{ props.item.name }}</td>
         <td class="text-xs-left">{{ props.item.description }}</td>
         <td class="text-xs-left">
-          <router-link :to="'/update/'+ props.item.id ">
+          <router-link :to="'/update/'+ props.item.id">
             <v-btn color="warning">Update</v-btn>
           </router-link>
           <v-btn color="info" @click="submitDeleteProduct(props.item.id)">Delete</v-btn>
         </td>
       </template>
+      <template
+        slot="pageText"
+        slot-scope="props"
+      >Lignes {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}</template>
     </v-data-table>
     <router-link to="/create">
       <v-btn color="success">Create</v-btn>
@@ -21,60 +25,41 @@
 </template>
 
 <script>
-import Modal from "../components/Modal";
+import Modal from '../components/Modal'
 export default {
-  name: "ProductsTable",
+  name: 'ProductsTable',
   components: {
     Modal
   },
   data: () => ({
     showModal: false,
     currentId: 0,
-    // search: '',
-    // page: 1,
-    //   pagination: {
-    //     rowsPerPage: 1,
-    //     totalItems: 10
-    //   },
-    //   selected: [],
     headers: [
       {
-        text: "ID",
-        align: "left",
+        text: 'ID',
+        align: 'left',
         sortable: false,
-        value: "id"
+        value: 'id'
       },
-      { text: "Name", value: "name", sortable: false },
-      { text: "Description", value: "description", sortable: false },
-      { text: "Actions", value: "actions", sortable: false }
+      { text: 'Name', value: 'name', sortable: false },
+      { text: 'Description', value: 'description', sortable: false },
+      { text: 'Actions', value: 'actions', sortable: false }
     ]
   }),
   computed: {
-    products() {
-      return this.$store.getters.GET_PRODUCTS;
+    products () {
+      return this.$store.getters.GET_PRODUCTS
     }
-    // pages () {
-    //   if (this.pagination.rowsPerPage == null || this.pagination.totalItems == null) {
-    //     return 0
-    //   }
-    //   return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-    // }
   },
   methods: {
-    submitDeleteProduct(id) {
-      this.currentId = id;
-      this.showModal = true;
+    submitDeleteProduct (id) {
+      this.currentId = id
+      this.showModal = true
     },
-    deleteProduct() {
-      this.$store.commit("DELETE_PRODUCT", this.currentId);
-      this.showModal = false;
+    deleteProduct () {
+      this.$store.commit('DELETE_PRODUCT', this.currentId)
+      this.showModal = false
     }
   }
-};
-</script>
-
-<style scope lang="scss">
-.v-datatable__actions {
-  display: none !important;
 }
-</style>
+</script>

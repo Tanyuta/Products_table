@@ -1,9 +1,9 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 sm10 md8 lg6>
-      <v-card ref='form'>
+    <v-flex xs12 sm10 md8 lg4>
+      <v-card>
         <v-card-text>
-          <v-form ref='form' v-model='valid' lazy-validation>
+          <v-form v-model='valid' lazy-validation>
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12>
