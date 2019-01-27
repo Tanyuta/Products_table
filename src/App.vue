@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id='app'>
     <v-app>
       <v-content>
         <v-container>
@@ -10,9 +10,9 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang='scss'>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
