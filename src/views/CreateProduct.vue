@@ -50,8 +50,14 @@ export default {
       description: ''
     },
     valid: false,
-    nameRules: [v => !!v || 'Name is required'],
-    descriptionRules: [v => !!v || 'Description is required']
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 256) || 'Name must be less than 256 characters'
+    ],
+    descriptionRules: [
+      v => !!v || 'Description is required',
+      v => (v && v.length <= 256) || 'Description must be less than 256 characters'
+    ]
   }),
   methods: {
     createProduct () {

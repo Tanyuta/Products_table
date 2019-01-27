@@ -47,8 +47,14 @@ export default {
     initialProduct: {},
     id: 0,
     valid: true,
-    nameRules: [v => !!v || 'Name is required'],
-    descriptionRules: [v => !!v || 'Description is required']
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 256) || 'Name must be less than 256 characters'
+    ],
+    descriptionRules: [
+      v => !!v || 'Description is required',
+      v => (v && v.length <= 256) || 'Description must be less than 256 characters'
+    ]
   }),
   created () {
     this.id = this.$route.params.id

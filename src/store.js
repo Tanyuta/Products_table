@@ -13,7 +13,7 @@ export default new Vuex.Store({
   mutations: {
     ADD_PRODUCT (state, payload) {
       const newProduct = {
-        'id': state.products.length ? (state.products[state.products.length - 1].id + 1) : 1,
+        'id': state.products.length ? (Number(state.products[state.products.length - 1].id) + 1) : 1,
         'name': payload.name,
         'description': payload.description
       }
