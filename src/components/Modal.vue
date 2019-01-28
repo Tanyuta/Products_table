@@ -1,8 +1,8 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model='dialog' max-width='350'>
+    <v-dialog v-model='dialog' persistent max-width='350'>
       <v-card>
-        <v-card-text>Are you sure that you want to delete this product?</v-card-text>
+        <v-card-text class="headline">Are you sure that you want to delete this product?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color='red darken-1' flat='flat' @click='close'>No</v-btn>

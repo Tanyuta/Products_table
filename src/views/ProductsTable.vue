@@ -20,7 +20,7 @@
     <router-link to="/create">
       <v-btn color="success">Create</v-btn>
     </router-link>
-    <Modal v-if="showModal" @close="showModal = false" @deleteProduct="deleteProduct"/>
+    <Modal v-if="showModal" @close="showModal = !showModal"  @deleteProduct="deleteProduct"/>
   </div>
 </template>
 
@@ -54,11 +54,11 @@ export default {
   methods: {
     submitDeleteProduct (id) {
       this.currentId = id
-      this.showModal = true
+      this.showModal = !this.showModal
     },
     deleteProduct () {
       this.$store.commit('DELETE_PRODUCT', this.currentId)
-      this.showModal = false
+      this.showModal = !this.showModal
     }
   }
 }

@@ -26,7 +26,7 @@
                 </v-flex>
               </v-layout>
               <v-btn
-                :disabled="(!valid || newProduct.name === '' || newProduct.description === '')"
+                :disabled="(!valid || !newProduct.name.length || !newProduct.description.length)"
                 color="success"
                 @click="createProduct"
               >Save</v-btn>
